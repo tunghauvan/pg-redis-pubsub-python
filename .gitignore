@@ -1,0 +1,37 @@
+# Byte-compiled Python files
+*.pyc
+
+# Log files
+*.log
+
+# Package files
+*.pkg
+
+# Distribution files
+*.dist
+
+# Egg files
+*.egg-info
+*.egg
+
+# IDE files (e.g. PyCharm, VSCode)
+.idea/
+.vscode/
+
+# Virtual environment files
+venv/
+env/
+.venv/
+.env
+
+# Temporary files
+*.tmp
+
+# Cache files
+__pycache__/
+
+# Other files to ignore
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+

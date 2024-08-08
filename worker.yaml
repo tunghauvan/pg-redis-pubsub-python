@@ -1,0 +1,8 @@
+workers:
+  - name: consumer_agent
+    handler_module: handler.message_handler
+    handler_name: main
+    filters:
+      # operation: UPDATE
+      table: message
+  - name: producer

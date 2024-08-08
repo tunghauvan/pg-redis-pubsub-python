@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  ################
+  # postgrest-db #
+  ################
+  postgrest:
+    container_name: postgrest
+    image: postgres:13-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - DB_ROLE=${DB_ROLE}
+      - DB_ANON_ROLE=${DB_ANON_ROLE}
+      - DB_SCHEMA=${DB_SCHEMA}
+
+    volumes:
+      # anything in initdb directory is created in the database
+      # see "How to extend this image" section at https://hub.docker.com/r/_/postgres/
+      - "./initdb:/docker-entrypoint-initdb.d"
+    restart: always
+  
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+
+  producer-agent:
+    container_name: producer-agent
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_DSN=postgres://postgres:postgres@postgrest:5432/postgres
+      - REDIS_HOST=redis
+    depends_on:
+      - postgrest
+    command: ["python", "worker.py", "producer"]
+    restart: always
+
+  consumer-agent:
+    container_name: consumer-agent
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_DSN=postgres://postgres:postgres@postgrest:5432/postgres
+      - REDIS_HOST=redis
+    depends_on:
+      - postgrest
+    command: ["python", "worker.py", "consumer_agent"]
+    restart: always
