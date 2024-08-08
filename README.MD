@@ -10,19 +10,19 @@ This repository contains a Python application that listens to Redis Pub/Sub mess
 ## Setup
 
 1. Clone the repository:
-    ```sh
-    git clone https://github.com/yourusername/pg-redis-pubsub-python.git
-    cd pg-redis-pubsub-python
-    ```
+```sh
+git clone https://github.com/yourusername/pg-redis-pubsub-python.git
+cd pg-redis-pubsub-python
+```
 
 2. Build and start the Docker containers:
-    ```sh
-    docker-compose up --build -d
-    ```
+```sh
+docker-compose up --build -d
+```
 
 ## Test message 
 ```sh
-docker exec -it postgrest psql -U postgres -c "INSERT INTO message (content) VALUES ('Hello, I need you to confirm');" 
+docker-compose exec -it postgres psql -U postgres -c "INSERT INTO message (content) VALUES ('Hello, I need you to confirm');" 
 ```
 
 ## View event
