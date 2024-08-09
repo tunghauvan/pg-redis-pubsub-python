@@ -11,7 +11,7 @@ This repository contains a Python application that listens to Redis Pub/Sub mess
 
 1. Clone the repository:
 ```sh
-git clone https://github.com/yourusername/pg-redis-pubsub-python.git
+git clone https://github.com/tunghauvan/pg-redis-pubsub-python.git
 cd pg-redis-pubsub-python
 ```
 
