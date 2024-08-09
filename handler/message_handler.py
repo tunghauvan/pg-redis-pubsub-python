@@ -1,4 +1,4 @@
-from eventter import EventSchema
+from event_schema import EventSchema
 import logging
 import psycopg2
 import os

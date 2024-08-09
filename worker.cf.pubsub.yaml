@@ -1,0 +1,12 @@
+workers:
+  - name: pubsub_producer
+    worker_module: src.worker.pubsub_producer
+    worker_name: worker
+  - name: pubsub_consumer
+    worker_module: src.worker.pubsub_consumer
+    worker_name: worker
+    handler_module: handler.message_handler
+    handler_name: main
+    filters:
+      # operation: UPDATE
+      table: message

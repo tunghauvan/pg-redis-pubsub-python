@@ -21,8 +21,8 @@ services:
     image: redis:latest
     restart: always
 
-  producer-agent:
-    container_name: producer-agent
+  producer-agent-1:
+    container_name: producer-agent-1
     build:
       context: .
       dockerfile: Dockerfile
@@ -31,9 +31,24 @@ services:
       - REDIS_HOST=redis
     depends_on:
       - postgres
-    command: ["python", "worker.py", "pubsub_producer"]
+    command: ["python", "worker.py", "stream_producer"]
     volumes:
-      - ./worker.cf.pubsub.yaml:/app/worker.yaml
+      - ./worker.cf.stream.yaml:/app/worker.yaml
+    restart: always
+
+  producer-agent-2:
+    container_name: producer-agent-2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_DSN=postgres://postgres:postgres@postgres:5432/postgres
+      - REDIS_HOST=redis
+    depends_on:
+      - postgres
+    command: ["python", "worker.py", "stream_producer"]
+    volumes:
+      - ./worker.cf.stream.yaml:/app/worker.yaml
     restart: always
 
   consumer-agent:
@@ -44,9 +59,10 @@ services:
     environment:
       - POSTGRES_DSN=postgres://postgres:postgres@postgres:5432/postgres
       - REDIS_HOST=redis
+      - REDIS_CONSUMER=consumer-agent
     depends_on:
       - postgres
-    command: ["python", "worker.py", "pubsub_consumer"]
+    command: ["python", "worker.py", "stream_consumer"]
     volumes:
-      - ./worker.cf.pubsub.yaml:/app/worker.yaml
+      - ./worker.cf.stream.yaml:/app/worker.yaml
     restart: always

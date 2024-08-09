@@ -6,7 +6,7 @@ import time
 import os
 import logging
 
-from eventter import EventSchema
+from event_schema import EventSchema
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

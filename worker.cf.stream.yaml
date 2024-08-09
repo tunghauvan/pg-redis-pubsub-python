@@ -1,0 +1,12 @@
+workers:
+  - name: stream_producer
+    worker_module: src.worker.stream_producer
+    worker_name: worker
+  - name: stream_consumer
+    worker_module: src.worker.stream_consumer
+    worker_name: worker
+    handler_module: handler.message_handler
+    handler_name: main
+    filters:
+      # operation: UPDATE
+      table: message
