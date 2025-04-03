@@ -29,7 +29,7 @@ dlm = Redlock([{"host": REDIS_HOST, "port": REDIS_PORT, "db": REDIS_DB}])
 try:
     redis_client.xgroup_create(REDIS_STREAM, GROUP_NAME, id='0', mkstream=True)
 except redis.exceptions.ResponseError as e:
-    if "BUSYGROUP Consumer Group name already exists"'s not in str(e):
+    if "BUSYGROUP Consumer Group name already exists" not in str(e):
         raise
 
 # Define a default handler function
