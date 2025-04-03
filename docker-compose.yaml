@@ -25,7 +25,7 @@ services:
     container_name: producer-agent
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfil
     environment:
       - POSTGRES_DSN=postgres://postgres:postgres@postgres:5432/postgres
       - REDIS_HOST=redis
